@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/wifiToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open WIFI Settings"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/discoverButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discover nearby devices"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="150dp"/>
+
+    <Button
+        android:id="@+id/advertiseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Advertise this device"
+        android:layout_below="@id/discoverButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+<!--    <ListView-->
+<!--        android:id="@+id/discoveredDevicesListView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/advertiseButton"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:padding="16dp"/>-->
+<!--    <TextView-->
+<!--        android:id="@+id/availableDevicesTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/advertiseButton"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="16dp"-->
+
+<!--        android:text="@string/available_devices"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textStyle="bold"/>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/discoveredDevicesRecyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/advertiseButton"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:padding="16dp"/>-->
+
+
+
+</RelativeLayout>
