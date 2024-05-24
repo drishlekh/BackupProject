@@ -42,6 +42,16 @@
         android:layout_marginTop="30dp"
         android:padding="16dp" />
 
+    <com.techmania.nsd.DeviceCircleView
+        android:id="@+id/deviceCircleView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/discoveredDevicesRecyclerView"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+
+
 
 
 </RelativeLayout>

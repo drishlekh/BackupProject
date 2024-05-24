@@ -58,10 +58,9 @@ class MainActivity : AppCompatActivity() {
         nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
-//        discoveredDevicesRecyclerView = findViewById(R.id.discoveredDevicesRecyclerView)
+
         deviceAdapter = DeviceAdapter(mutableListOf())
-//        discoveredDevicesRecyclerView.adapter = deviceAdapter
-//        discoveredDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
+
 
         val discoverButton = findViewById<Button>(R.id.discoverButton)
         val advertiseButton = findViewById<Button>(R.id.advertiseButton)
@@ -161,8 +160,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun advertiseService() {
         val port = 8080
-        val deviceName = Build.BRAND + "_" + Build.MODEL
-        val uniqueServiceName = "$deviceName${UUID.randomUUID()}"
+        val deviceName = Build.BRAND + "_" + Build.MODEL + "_"
+        val uniqueServiceName = "$deviceName${UUID.randomUUID().toString().substring(0, 5)}"
 
         val nsdServiceInfo = NsdServiceInfo().apply {
             serviceName = uniqueServiceName  //"MyAndroidDevice"
@@ -196,9 +195,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Stop") { _, _ ->
                 stopAdvertisingService()
             }
-//            .setNegativeButton("Cancel") { dialog, _ ->
-//                dialog.dismiss()
-//            }
+
         val dialog = builder.create()
         dialog.show()
     }
@@ -212,23 +209,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-//        nsdManager.registerService(nsdServiceInfo, NsdManager.PROTOCOL_DNS_SD, object : NsdManager.RegistrationListener {
-//            override fun onServiceRegistered(serviceInfo: NsdServiceInfo) {
-//                Log.d("NSD", "Service registered: ${serviceInfo.serviceName}")
-//            }
-//
-//            override fun onRegistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-//                Log.e("NSD", "Registration failed: $errorCode")
-//            }
-//
-//            override fun onServiceUnregistered(serviceInfo: NsdServiceInfo) {
-//                Log.d("NSD", "Service unregistered: ${serviceInfo.serviceName}")
-//            }
-//
-//            override fun onUnregistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
-//                Log.e("NSD", "Unregistration failed: $errorCode")
-//            }
-//        })
 
 
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+
 class DeviceListActivity : AppCompatActivity() {
 
     private lateinit var discoveredDevicesRecyclerView: RecyclerView
@@ -20,12 +21,14 @@ class DeviceListActivity : AppCompatActivity() {
     private lateinit var stopDiscovery: Button
     private val handler = Handler(Looper.getMainLooper())
     private val updateInterval = 5000L // 5 seconds
-    //here
+
     private lateinit var reloadDiscovery: Button
     private lateinit var nsdManager: NsdManager
     private var discoveryListener: NsdManager.DiscoveryListener? = null
     private val discoveredServices = mutableSetOf<NsdServiceInfo>()
     private val serviceType = "_myapp_service._tcp."
+
+    private lateinit var deviceCircleView: DeviceCircleView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +40,11 @@ class DeviceListActivity : AppCompatActivity() {
         discoveredDevicesRecyclerView.adapter = deviceAdapter
         discoveredDevicesRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        deviceCircleView = findViewById(R.id.deviceCircleView)
+
         stopDiscovery = findViewById(R.id.stopDiscovery)
 
-        //here
+
         reloadDiscovery = findViewById(R.id.reloadDiscovery)
         val deviceNames = intent.getStringArrayListExtra("deviceNames") ?: mutableListOf()
         deviceAdapter.updateDevices(deviceNames)
@@ -49,13 +54,13 @@ class DeviceListActivity : AppCompatActivity() {
             stopDiscovery(true)
         }
 
-        //here
+
         reloadDiscovery.setOnClickListener {
             restartDiscovery()
         }
 
 
-        //updateDeviceList()
+
         startDiscovery()
         startPeriodicUpdates()
     }
@@ -86,22 +91,17 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     private fun updateDeviceList() {
-        //val deviceNames = intent.getStringArrayListExtra("deviceNames") ?: mutableListOf()
+
         val deviceNames = discoveredServices.map { it.serviceName }.toList()
         deviceAdapter.updateDevices(deviceNames)
-        //Log.d("NSD", "update device list")
+        deviceCircleView.setDevices(deviceNames)
+
 
     }
 
     @SuppressLint("ServiceCast")
     private fun stopDiscovery(finishActivity: Boolean) {
-//        val nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
-//        //val discoveryListener = (applicationContext as MyApplication).discoveryListener
-//        val discoveryListener = MainActivity.discoveryListener
-//        discoveryListener?.let {
-//            nsdManager.stopServiceDiscovery(it)
-//        }
-//        finish()
+
         discoveryListener?.let {
             nsdManager.stopServiceDiscovery(it)
         }
@@ -112,12 +112,7 @@ class DeviceListActivity : AppCompatActivity() {
     }
 
     private fun restartDiscovery() {
-//        discoveryListener?.let {
-//            nsdManager.stopServiceDiscovery(it)
-//        }
-//        discoveredServices.clear()
-//        updateDeviceList()
-//        startDiscovery()
+
         stopDiscovery(false)
         discoveredServices.clear()
         updateDeviceList()
