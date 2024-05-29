@@ -49,11 +49,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
+
+
     @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
 
         nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
         wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -118,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                         intent.putStringArrayListExtra("deviceNames", ArrayList(deviceNames))
                         startActivity(intent)
                         updateDiscoveredDevicesUI()
+
                     }
                 }
             }
@@ -150,13 +158,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     @SuppressLint("SetTextI18n")
     private fun updateDiscoveredDevicesUI() {
         val deviceNames = discoveredServices.map { it.serviceName }
         deviceAdapter.updateDevices(deviceNames)
-        //availableDevicesTextView.text = "Available Devices: ${deviceNames.joinToString(", ")}"
     }
+
+
+
+
+
+
 
     private fun advertiseService() {
         val port = 8080

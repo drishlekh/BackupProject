@@ -2,13 +2,16 @@ package com.techmania.nsd
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +23,7 @@ class DeviceListActivity : AppCompatActivity() {
     private lateinit var deviceAdapter: DeviceAdapter
     private lateinit var stopDiscovery: Button
     private val handler = Handler(Looper.getMainLooper())
-    private val updateInterval = 5000L // 5 seconds
+    private val updateInterval = 5000L
 
     private lateinit var reloadDiscovery: Button
     private lateinit var nsdManager: NsdManager
@@ -28,12 +31,19 @@ class DeviceListActivity : AppCompatActivity() {
     private val discoveredServices = mutableSetOf<NsdServiceInfo>()
     private val serviceType = "_myapp_service._tcp."
 
+
     private lateinit var deviceCircleView: DeviceCircleView
+
+
+    private val selectedDeviceAddresses = mutableListOf<String>()
+
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_list)
+
 
         discoveredDevicesRecyclerView = findViewById(R.id.discoveredDevicesRecyclerView)
         deviceAdapter = DeviceAdapter(mutableListOf())
@@ -44,10 +54,16 @@ class DeviceListActivity : AppCompatActivity() {
 
         stopDiscovery = findViewById(R.id.stopDiscovery)
 
+        deviceCircleView = findViewById(R.id.deviceCircleView)
+        deviceCircleView.setDevices(listOf("Device 1", "Device 2", "Device 3"))
+
 
         reloadDiscovery = findViewById(R.id.reloadDiscovery)
         val deviceNames = intent.getStringArrayListExtra("deviceNames") ?: mutableListOf()
         deviceAdapter.updateDevices(deviceNames)
+
+
+
         nsdManager = getSystemService(Context.NSD_SERVICE) as NsdManager
 
         stopDiscovery.setOnClickListener {
@@ -98,6 +114,7 @@ class DeviceListActivity : AppCompatActivity() {
 
 
     }
+
 
     @SuppressLint("ServiceCast")
     private fun stopDiscovery(finishActivity: Boolean) {

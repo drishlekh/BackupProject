@@ -35,3 +35,16 @@ class DeviceAdapter(private val deviceNames: MutableList<String>) : RecyclerView
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
