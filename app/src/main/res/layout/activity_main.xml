@@ -30,32 +30,7 @@
         android:layout_below="@id/discoverButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"/>
-<!--    <ListView-->
-<!--        android:id="@+id/discoveredDevicesListView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/advertiseButton"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:padding="16dp"/>-->
-<!--    <TextView-->
-<!--        android:id="@+id/availableDevicesTextView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/advertiseButton"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="16dp"-->
 
-<!--        android:text="@string/available_devices"-->
-<!--        android:textSize="16sp"-->
-<!--        android:textStyle="bold"/>-->
-
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/discoveredDevicesRecyclerView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/advertiseButton"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:padding="16dp"/>-->
 
 
 

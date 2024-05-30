@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private var registrationListener: NsdManager.RegistrationListener? = null
 
 
-
+    private val discoveredIPAddress = ArrayList<String>()
 
 
 
@@ -116,18 +116,57 @@ class MainActivity : AppCompatActivity() {
                 Log.d("NSD", "Service discovery started````````````````````````````")
             }
 
+            @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
             override fun onServiceFound(serviceInfo: NsdServiceInfo) {
-                Log.d("NSD", "Service found: ${serviceInfo.serviceName}")
-                mainHandler.post {
-                    if (discoveredServices.add(serviceInfo)) {
-                        val deviceNames = discoveredServices.map { it.serviceName }.toList()
-                        val intent = Intent(this@MainActivity, DeviceListActivity::class.java)
-                        intent.putStringArrayListExtra("deviceNames", ArrayList(deviceNames))
-                        startActivity(intent)
-                        updateDiscoveredDevicesUI()
+                Log.d("NSD", "Service found: ${serviceInfo.serviceName}") //-  ${serviceInfo.getHostAddresses()}")
 
+
+
+            //                mainHandler.post {
+//                    if (discoveredServices.add(serviceInfo)) {
+//                        val deviceNames = discoveredServices.map { it.serviceName }.toList()
+//                        val intent = Intent(this@MainActivity, DeviceListActivity::class.java)
+//                        intent.putStringArrayListExtra("deviceNames", ArrayList(deviceNames))
+//                        startActivity(intent)
+//                        updateDiscoveredDevicesUI()
+//
+//                    }
+//                }
+
+                nsdManager.resolveService(serviceInfo, object : NsdManager.ResolveListener {
+                    override fun onResolveFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
+                        Log.e("NSD", "Resolve failed: $errorCode")
                     }
-                }
+
+                    override fun onServiceResolved(serviceInfo: NsdServiceInfo) {
+                        val host = serviceInfo.host
+                        val port = serviceInfo.port
+                        val address = host.hostAddress
+                        Log.d(
+                            "NSD",
+                            "Resolved service: ${serviceInfo.serviceName} \n - IP Address: $address \n - Host: $host \n - Port: $port"
+                        )
+                        if (address != null) {
+                            discoveredIPAddress.add(address)
+                        }
+                        Log.d("NSD", "Discovered IP Addresses: $discoveredIPAddress ")
+                        mainHandler.post {
+                            if (discoveredServices.add(serviceInfo)) {
+                                val deviceNames = discoveredServices.map { it.serviceName }.toList()
+                                val intent =
+                                    Intent(this@MainActivity, DeviceListActivity::class.java)
+                                intent.putStringArrayListExtra(
+                                    "deviceNames",
+                                    ArrayList(deviceNames)
+                                )
+                                startActivity(intent)
+                                updateDiscoveredDevicesUI()
+                            }
+                        }
+                    }
+                })
+
+
             }
 
             override fun onServiceLost(serviceInfo: NsdServiceInfo) {
@@ -182,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         }
         registrationListener = object : NsdManager.RegistrationListener {
             override fun onServiceRegistered(serviceInfo: NsdServiceInfo) {
-                Log.d("NSD", "Service registered: ${serviceInfo.serviceName}")
+                Log.d("NSD", "Service registered: ${serviceInfo.serviceName} ")
             }
 
             override fun onRegistrationFailed(serviceInfo: NsdServiceInfo, errorCode: Int) {
@@ -246,3 +285,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 }
+
+
+
+
+
+
+
