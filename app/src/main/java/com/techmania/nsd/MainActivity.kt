@@ -80,11 +80,19 @@ class MainActivity : AppCompatActivity() {
         discoverButton.setOnClickListener {
             Toast.makeText(this,"Discovering nearby devices...",Toast.LENGTH_LONG).show()
             discoverServices()
+            advertiseButton.isEnabled=false
+
+
         }
+
         advertiseButton.setOnClickListener {
-            Toast.makeText(this,"advertising your device...",Toast.LENGTH_LONG).show()
-            showAdvertiseDialog()
-            advertiseService()
+            if(advertiseButton.isEnabled) {
+                Toast.makeText(this, "advertising your device...", Toast.LENGTH_LONG).show()
+                showAdvertiseDialog()
+                advertiseService()
+            }
+
+
         }
 
         wifiToggleButton.setOnClickListener {
@@ -246,6 +254,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("Stop") { _, _ ->
                 stopAdvertisingService()
             }
+            .setCancelable(false)
 
         val dialog = builder.create()
         dialog.show()
