@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NSD</string>
+    <string name="discover">Discover</string>
+    <string name="advertise">Advertise</string>
+    <string name="available_devices">Available Devices:</string>
+    <string name="toggle_wi_fi">Toggle Wi-Fi</string>
+    <string name="wi_fi_status">Wi-Fi Status</string>
+    <string name="wifi_on_off">WIFI ON/OFF</string>
+    <string name="discover_neraby_devices">Discover neraby devices</string>
+    <string name="discover_nearby_devices" />
+    <string name="Discover_nearby_devices" />
+</resources>
